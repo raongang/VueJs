@@ -5,18 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<!-- loadash, axios -->
 <body>
-    <!-- loadash, axios -->
+    
     <div id="app">
         <h1>{{message}}</h1>
+
+        <!--입력양식과 동기화 -->
+        <input v-model="message">
+        <input v-model.number="numberMessage">
 
         <ol>
             <!-- v-for는 디렉티브 -->
             <li v-for="item in list">{{item}}</li>
-
         </ol>
-    </div>
 
+        <!-- 이벤트 사용 -->
+        <button v-on:click="handleClick">Click</button>
+    </div>
 
     <!-- <script type="text/javascript" src="../js/sample.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
@@ -26,9 +32,15 @@
         var app = new Vue({
             el:'#app',
             data : {  // 화면 렌더링 데이터
-                message : 'Hello Vue',
+                message : '초기 메세지',
+                numberMessage : '1',
                 list : ['aplle','banana','strawberry']
-            } 
+            } ,
+            methods:{
+                handleClick : function(event){ 
+                   alert(event.target);
+               } 
+            }
             
         })
     </script>
