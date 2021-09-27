@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Methods</title>
+</head>
+<body>
+
+    <!-- 
+    여기서 메소드들은 해당 vue template(쉽게 말하면 html내부), 그리고 vue 인스턴스 내에서 모두 사용할 수 있음
+    그냥 내부에 선언한 함수들과 다른점이 뭐냐면 vue인스턴스 내의 값에 접근을 할 수 있다.
+    -->
+    <div id="app">    
+        <button @click="showAge">{{name}}</button>  
+    </div>    
+    <div id="test"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.17.1/dist/axios.min.js"></script>    
+    <script>
+        new Vue ({
+            el : '#app',
+            data : { 
+                name : 'kukaro',
+                age : 26
+            },
+            methods : {
+                showAge : function() { 
+                    //중요한건 실전에서 절대 document.getElementById등의 DOM에 직접 접근하는 함수를 사용하면 안된다.
+                    document.getElementById('test').textContent += this.age;
+                }
+            }
+        
+        })
+    </script>
+</body>
+</html>
+

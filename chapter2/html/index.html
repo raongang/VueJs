@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <title>텍스트와 바인딩 </title>
+
+</head>
+<!-- loadash, axios -->
+<body>
+    <div id="app">
+        
+        <p>{{ message.value}}</p>
+        <p>{{ message.value.length }}</p>
+        <p>{{ message.length >= 10? '10 글자 이상' : '10글자 미만' }}</p>
+        <p>{{ list[2] }} </p>
+        <p>{{ list[num]}}</p>
+
+        <!-- 
+        속성바인딩은 v-bind를 이용한다.    
+        컴파일 에러 
+        <input type="text" value="{{message}}">
+        -->
+
+        <input type="text" v-bind:value="message.value">
+        <input type="text" :value="message.value">
+        <input type="text" value="1">
+
+        <!-- v-bind 장식자 -->
+        <!-- DOM 의 textContent속성에 바인딩 하기 
+        <div v-bind:text-content.prop="message">...</div>
+        -->
+
+        <!-- dom의 scrollTop 속성에 바인딩 하기 -->
+        <div v-bind:scroll-top.prop="scroll">...</div>
+        
+        <!-- data 상태 확인하기  -->
+        <pre>{{ $data}}</pre>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+
+</body>
+</html>
+

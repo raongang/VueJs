@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <title>이벤트 핸들링</title>
+
+</head>
+<body>
+        <div id="app">      
+            <!-- 입력 양식 입력 추출하기 -->
+            <input v-bind:value="message" v-on:input="handleInput">
+
+            <!-- 이벤트 장식자 : DOM 이벤트의 기본적인 동작을 변경해 줌. -->
+            <div v-on:click.right="handler">example</div>
+            <div v-on:click.right.prevent="handler">example</div>
+
+            <!-- 이벤트 장식자 .stop : 버블링 막음 -->
+            <div v-on:click="handler('div1')">
+                div1 
+                <a href="#top" v-on:click.stop="handler('div2')">div2</a>
+            </div>
+
+
+
+        </div>    
+
+
+            
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    <script>
+        new Vue ({
+            el : '#app',
+            data : { 
+                message : 'Hello Vue.js'
+            },
+            //리액티브
+            methods : { 
+                handleInput : function(event){
+                    //할당 전에 어떤 처리하기.
+                    this.message = evnet.target.value
+                },
+                handler : function(comment){
+                    console.log(comment);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
+

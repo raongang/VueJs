@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <title>입력 양식 입력 핸들링</title>
+
+</head>
+<body>
+
+        <!-- v-model : 입력 양식의 값 또는 선택 값을 데이터와 동기화 하는 양방향 데이터 바인딩 실시 시 사용 
+            v-model 디렉티브는 ‘DOM 요소에 적용한 데이터 바인당과 ‘요소에서
+            추출한 데이터를 리액티브 데이터로 반영하는 처러를 자동화해 주는 구문입니다.
+
+            v-model 디렉티브롤 사용하면, 속성으로 설정한 값은 사용되지 않습니다. 입력 양식의 값이나 선택되어
+            있는 것은 항상 v-model에 바인딩한 것과 동기화됩니다. 따라서 value. checked. selected를 설정해도
+            이러한 속성은 모두 무시됩니다.
+        -->
+
+
+        <div id="app">      
+            <!-- v-model로 받은 데이터의 자료형 -->
+            <input v-model="message">
+            <p>{{message}}</p>            
+
+            <textarea v-model="message2"></textarea>
+            <pre>{{message2}}</pre>
+
+            <!-- 체크 박스 -->
+            <label>
+                <input type="checkbox" v-model="val" true-value="yes" false-value="no">{{val}}
+                
+            </label>
+
+            <label><input type="checkbox" v-model="val2" value="A" />A</label>
+            <label><input type="checkbox" v-model="val2" value="B" />B</label>
+            <label><input type="checkbox" v-model="val2" value="C" />C</label>
+            <p>{{val2}}</p>
+                
+            <!-- 라디오 버튼 -->
+            <label><input type="radio" value="a" v-model="val3">A</label>
+            <label><input type="radio" value="b" v-model="val3">B</label>
+            <label><input type="radio" value="c" v-model="val3">C</label>
+            <p>{{val3}}</p>
+
+            <!-- 선택박스1  데이터 문자로 다룸 -->
+            <select v-model="val4">
+                <option disabled="disabled">선택해주세요.</option>
+                <option value="a">A</option>
+                <option value="b">B</option>
+                <option value="c">C</option>
+                <option value="d">D</option>
+            </select>
+            <p>{{val4}}</p>
+
+            <!-- 선택박스2  여러 요소 선택하는 박스는 배열로 다룸 -->
+            <select v-model="val5" multiple>
+                <option disabled="disabled">선택해주세요.</option>
+                <option value="a">A</option>
+                <option value="b">B</option>
+                <option value="c">C</option>
+                <option value="d">D</option>
+            </select>
+            <p>{{val5}}</p>
+            
+            
+
+        </div>    
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    <script>
+        new Vue ({
+            el : '#app',
+            //리액티브 데이터
+            data : { 
+                message : 'Hello Vue.js',
+                message2 : 'Vue.js',
+                val : 'true',
+                val2 : [],
+                val3 : '',
+                val4 : '',
+                val5 : []
+                
+            }
+        })
+    </script>
+</body>
+</html>
+

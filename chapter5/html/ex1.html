@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>워처로 데이터 감시해서 처리 자동화하기</title>
+
+</head>
+<body>
+    <!-- 
+        워처(watcher)란, 특정 데이터 또는 산출 속성의 상태를 감시해서 변화가 있을 때
+        등록한 처리를 자동으로 실행해 주는 것입니다. 따라서 데이터의 변화를 트리거로
+        하는훅입니다.
+
+        산출 속성과 다르게 워처는 워치 자체가 데이터를 리턴하지 않습니다
+    -->
+    <div id="app">    
+        <select v-model="current">
+            <option v-for="topic in topics" v-bind:value="topic.value">
+                {{topic.name}}
+
+            </option>
+
+        </select> 
+
+        <div v-for="item in list">>{{item.full_name}}</div>
+        
+    </div>    
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.17.1/dist/axios.min.js"></script>    
+    <script>
+        new Vue ({
+            el : '#app',
+            data : { 
+                list : [], 
+                current : '',
+                topics : [ 
+                    {value : 'vue', name : 'Vue.js'}, 
+                    {value : 'jQuery' , name : 'Jquery'}
+                ]
+          
+            },
+            
+            watch : {
+                // <감시할 데이터> : function(<새로운값>,<이전값>)
+                // 객체의 속성도 감시 가능
+
+                current : function(val){ 
+                    //깃허브 api에서 토픽 리파지토리 검색 
+                    axios.get('https://api.github.com/search/repositories',{
+                        param : { q: 'topic : ' + val}
+                    }).then(function(response){
+                        this.list = response.data.items
+                    }.bind(this))
+                }
+            }
+
+            
+        })
+    </script>
+</body>
+</html>
+

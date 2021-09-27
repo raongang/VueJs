@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <title>리스트 필터링</title>
+
+</head>
+<body>
+  
+
+    <div id="app">      
+        <!-- 캐시 기능 때문에 산출 속성은 원래 데이터에 변경이 있을 때까지 처리를 추가로 실
+            행하지 않습니다. 따라서 복잡한 저리를 하기에 적합합니다. -->
+            
+            <input v-model.number="budget">원 이하 필터링하기 
+            <input v-model.number="limit">개의 결과 출력하기 
+
+            <p>{{matched.length}}개 중에 {{ limited.length}} 개를 출력하고 있습니다.</p>
+            <ul>
+                <!-- v-for 최종결과라고 할 수 있는 산출속성 limited 사용 하기 -->
+                <li v-for="item in limited" v-bind:key="item.id">
+                    {{item.id}}
+                    {{item.name}}{{item.price}}원
+
+                </li>
+            </ul>
+
+    </div>    
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    <script>
+        new Vue ({
+            el : '#app',
+            data : { 
+                // 입력 양식에 출력할 데이터 
+                budget : 300,
+                //출력 개수 
+                limit : 3,
+                //데이터 리스트 
+                list : [
+                    { id : 1 , name : '사과', price : 100},
+                    { id : 2 , name : '바나나', price : 200},
+                    { id : 3 , name : '딸기', price : 400},
+                    { id : 4 , name : '오렌지', price : 300},
+                ]
+            }, 
+            computed : { 
+                //budget 아래의 리스트를 출력하는 산출 속성 
+                matched : function() { 
+                    return this.list.filter(function(el){ 
+                        return el.price <= this.budget
+                    },this)
+                }, 
+                // matched로 리턴한 데이터를 limit 조건을 걸어 리턴하는 산출 속성
+                limited : function() { 
+                    return this.matched.slice(0,this.limit)
+                }
+            } 
+                   
+        })
+    </script>
+</body>
+</html>
+

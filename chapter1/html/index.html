@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
     <title>Document</title>
+
 </head>
 <!-- loadash, axios -->
 <body>
-    
     <div id="app">
-        <h1>{{message}}</h1>
+        
+        <p v-if="showMain">Hello World</p>
+        <!-- 리액티브 시스템중의 하나인 데이터 바인딩-->
+        <p>{{message}}</p>
 
         <!--입력양식과 동기화 -->
         <input v-model="message">
@@ -22,27 +26,18 @@
 
         <!-- 이벤트 사용 -->
         <button v-on:click="handleClick">Click</button>
+
+        <!-- 트랜지션과 애니메이션 -->
+        <button v-on:click="show=!show">변경하기</button>
+        <transition>
+            <p v-if="show">Hello Vue.js!</p>
+        </transition>
+
     </div>
 
-    <!-- <script type="text/javascript" src="../js/sample.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
 
-    <script>
-        //루트? 컴포넌트  return값은 루트인스턴스
-        var app = new Vue({
-            el:'#app',
-            data : {  // 화면 렌더링 데이터
-                message : '초기 메세지',
-                numberMessage : '1',
-                list : ['aplle','banana','strawberry']
-            } ,
-            methods:{
-                handleClick : function(event){ 
-                   alert(event.target);
-               } 
-            }
-            
-        })
-    </script>
 </body>
 </html>
+

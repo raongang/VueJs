@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <title>이벤트 핸들링</title>
+
+</head>
+<body>
+    <div id="app">      
+
+        <!-- 
+            addEventListener or $(element).on 와 같은 기능을 Vue에서는 v-on 을 이용함
+            v-on을 생략하고 @로 줄여서 사용도 가능.
+        -->
+        <button @click="handleClick">클릭</button>
+
+        <!-- 인라인 메소드 핸들링 
+        <button v-on:click="count++">클릭</button>
+        <button v-on:click="handleCLick($event,item)">클륵</button>
+        -->
+
+    </div>    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    <script>
+        new Vue ({
+            el : '#app',
+            //리액티브
+            methods : { 
+                handleClick : function(){
+                    alert('클릭');
+                }            
+            }
+        })
+    </script>
+</body>
+</html>
+

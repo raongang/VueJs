@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <title>클래스와 스타일 데이터 바인딩</title>
+
+</head>
+
+<body>
+    <div id="app">
+        
+        <!--
+        <p v-bind:class="{ child : isChild, 'is-active':isActive }">Text</p>
+        <p v-bind:style="{color:textColor, backgroundColor:bgColor}">Text</p>
+        -->
+        
+        <!--데이터 바인딩을 하지 않은 플레인 속성과 함께 사용하는 경우 . 덮어쓰기됨 -->
+        <p class="child" v-bind:class="{'is-active':isActive }">Text2</p>        
+        <p style="color:blue" v-bind:style="{color:textColor}">Text2</p>
+        
+        <!-- 클래스 조건에 삼항연산자 쓰기 : 배열리터럴 사용 -->
+        <p v-bind:class="[isActive ? 'active' : 'normal']">Text3</p>
+
+        <!--객체에 데이터 전달하기 -->
+        <p v-bind:class="classObject">Text4</p>
+        <p v-bind:style="styleObject">Text5</p>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+
+    <script>
+        
+        new Vue ({
+            el : '#app',
+            //리액티브 데이터
+            data : { 
+                isChild : true, 
+                isActive : true,
+                textColor : 'red',
+                bgColor : 'lightgray' 
+                ,
+                classObject : {
+                    childe : true,
+                    'is-active' : false
+                }, 
+                styleObject : { 
+                    color:'green',
+                    backgroundColor : 'lightgray'
+                }
+            }
+        })
+
+    </script>
+
+</body>
+</html>
+

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <title>이벤트 핸들링</title>
+
+</head>
+<body>
+        <!-- 키 장식자 : 특정 키 코드만 핸들러를 호출하게 해줌. -->
+        <div id="app">      
+
+            <!-- 엔터키 눌렀을때 핸들러 호출 -->
+            <input v-on:keydown.13="handler">
+            <input v-on:keydown.enter="handler">
+
+        </div>    
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    <script>
+        new Vue ({
+            el : '#app',
+            data : { 
+                message : 'Hello Vue.js'
+            },
+            methods : { 
+                handler : function(comment){
+                    console.log(comment);
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>
+

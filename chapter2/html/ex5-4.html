@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <title>DOM을 직접 참조하는 $el과 $refs</title>
+</head>
+<body>
+    <div id="app">
+      $el과 $refs는 DOM을 참조해야 사용할 수 있기 떄문에 라이플 사이클 중에 mounted 이후에 사용가능.
+      가상 DOM을 사용하지 않기 떄문에 렌더링 최적화 실시하지 않음.
+      <p ref="hello">Hello</p>
+    </div>
+
+
+    <div id="app">
+      <button v-on:click="handleClick">Count up</button>
+      <button v-on:click="show!=show">표시/비표시</button>
+      <span ref="count" v-if="show">0</span>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.17.1/dist/axios.min.js"></script>
+
+    <script>        
+        new Vue({
+        el : '#app',
+        data: {
+        show: true
+        },
+        methods : {
+        handleClick () {
+            var count = this. $refs .count
+            if (count) {
+            count.innerText = parseint (count . innerText,10) + 1
+            }
+          }
+        }
+      })
+    </script>
+</body>
+</html>
+

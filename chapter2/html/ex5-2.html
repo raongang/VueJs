@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <title>리스트 데이터출력,변경하기</title>
+</head>
+<body>
+    <div id="app">
+        리스트 요소 추가하기
+        
+        <!-- 입력 양식의 입력값을 새로운 몬스터의 이름으로 사용-->
+        이름 <input v-model="name">
+        
+        <button v-on:click="doAdd">몬스터 추가하기</button>
+
+        <ul>
+            <li v-for="(item,index) in list" v-bind:key="item.id" v-if="item.hp">
+                ID.{{item.id}} {{item.name}} HP.{{item.hp}}
+                
+                <span v-if="item.hp < 50">Damage!!!!!</span>
+                
+                <button v-on:click="doRemove(index)">몬스터 제거하기</button>
+                <button v-on:click="doAttack(index)">공격하기</button>
+            </li>
+        </ul>
+
+        하나씩 렌더링
+        <span v-for="item in text">{{item}}</span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    
+
+    <script>        
+        new Vue ({
+            el : '#app',
+            //리액티브 데이터
+            data : { 
+                // 리스트 데이터는 id와 같이 유니크 키가 있어야 가상 DOM으로 렌더링 할때 최적화가 이루어진다.
+                name : '카메라',
+                list : [ 
+                    { id : 1, name : '슬라임', hp : 100 },
+                    { id : 2, name : '고블린', hp : 200 },
+                    { id : 3, name : '드래곤', hp : 500}
+                ],
+                text : 'Vue'
+            },
+            
+            methods : { 
+                
+                doAdd : function(){     
+                    // 이거 나중에 찾아보기
+                    var max = this.list.reduce(function(a,b){
+                        return a > b.id ? a: b.id
+                    },0)
+
+                    this.list.push({
+                        id : max + 1,
+                        name : this.name ,
+                        hp : 500
+                    })
+                }, //end function 
+                
+                doRemove : function(index) { 
+                    this.list.splice(index,1);
+                }, 
+
+                //리스트 속성 추가하기.
+                
+                create : function(){
+                    //모든 요소에 active 속성 추가하기
+                    this.list.forEach(function(item){
+                        //파라미터 : 변경할 데이터, 인덱스 or 키, 새로운 값
+                        this.$set(item,'active',true)
+                    },this)
+                    //"item.active = false”로 지정하면 리액티브 데이터가 아니게 됨
+                    
+                },
+                // 리스트 속성 변경하기.
+                doAttack : function(index){
+                    this.list[index].hp -=10;
+                }
+
+            }//end methods
+            
+        })
+    </script>
+</body>
+</html>
+

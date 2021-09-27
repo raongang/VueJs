@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <title>클래스와 스타일 데이터 바인딩</title>
+
+</head>
+
+<body>
+    <div id="app">
+        
+        <!-- 여러개의 속성 데이터 바인딩 하기 
+        
+        <img v-bind:src="item.src"
+            v-bind:alt="item.alt"c
+            v-bind:width="item.width"
+            v-bind:height= "item.height">
+        -->
+        <img v-bind="item">            
+        <img v-bind="item" v-bind:id="'thumb-'+item.id">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+
+    <script>
+        
+        new Vue ({
+            el : '#app',
+            //리액티브 데이터
+            data : { 
+                item : {
+                    id : 1,
+                    src : 'item1.jpg',
+                    alt : '상품1의 섬네일',
+                    width : 200,
+                    height : 200
+                }
+            }
+        })
+
+    </script>
+
+</body>
+</html>
+

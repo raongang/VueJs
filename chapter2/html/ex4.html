@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <title>템플릿에서 조건 분기하기</title>
+</head>
+
+<body>
+    <div id="app">
+        <div v-if="ok">v-if조건으로 출력하기</div>
+        <div v-show="ok">v-show조건으로 출력하기</div>
+
+        <!-- TEMPLATE 태그를 사용한 v-if 그룹 ( v-show는 불가능 )-->
+        <template v-if="ok">
+            <header>타이틀</header>
+            <div>콘텐츠</div>
+        </template>
+
+        <!-- v-else-if 와 v-else로 그룹 만들기 ( v-show는 불가능 )-->
+        <div v-if="type === 'A'">
+            type은 A
+        </div>
+        <div v-else-if="type === 'B'">
+            type은 B
+        </div>
+        <div v-else>
+            모든 조건을 만족하지 않는 경우
+        </div>
+
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+
+    <script>        
+        new Vue ({
+            el : '#app',
+            //리액티브 데이터
+            data : { 
+                ok : true,
+                type: 'A'
+            }
+        })
+    </script>
+    
+
+
+</body>
+</html>
+

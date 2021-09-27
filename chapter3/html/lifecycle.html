@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <title>Vue Life Cycle</title>
+</head>
+
+<body>
+  
+        <div id="app">      
+            <!-- 스크롤 이벤트 추출하기 -->
+
+        </div>    
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    <script>
+        new Vue ({
+            el : '#app',
+            data : { 
+                msg : 'hello'
+            },
+
+            //Vue 인스턴스가 초기화 된 직후에 발생됩니다. 컴포넌트가 DOM에 추가되기도 전이어서 this.$el에 접근할 수 없습니다. 또한 data, event, watcher에도 접근하기 전이라 data, methods에도 접근할 수 없습니다.
+            beforeCreate : function() { 
+                console.log('beforeCreate >> ' , this.msg);
+            }, 
+
+            /* created훅에서는 data를 반응형으로 추적할 수 있게 되며 computed, methods, watch 등이 활성화되어 접근이 가능하게 됩니다. 하지만 아직까지 DOM에는 추가되지 않은 상태입니다
+            data에 직접 접근이 가능하기 때문에, 컴포넌트 초기에 외부에서 받아온 값들로 data를 세팅해야 하거나 이벤트 리스너를 선언해야 한다면 이 단계에서 하는 것이 가장 적절합니다.
+            */
+            created : function() { 
+                console.log('created >> ' , this.msg);
+            },
+
+            //DOM에 부착하기 직전에 호출되는 beforeMount훅입니다. 이 단계 전에서 템플릿이 있는지 없는지 확인한 후 템플릿을 렌더링 한 상태이므로, 가상 DOM이 생성되어 있으나 실제 DOM에 부착되지는 않은 상태입니다.
+            beforeMount : function() { 
+                console.log('beforeMount')
+            },
+
+            //일반적으로 가장 많이 사용하는 mounted훅입니다. 가상 DOM의 내용이 실제 DOM에 부착되고 난 이후에 실행되므로, this.$el을 비롯한 data, computed, methods, watch 등 모든 요소에 접근이 가능합니다.
+            mounted : function() { 
+                this.$nextTick(function(){ //모든 화면이 렌더링 된 이후에 실행하게 할 수 있음.
+                    console.log('mounted')
+                })
+            }, 
+
+            //컴포넌트에서 사용되는 data의 값이 변해서, DOM에도 그 변화를 적용시켜야 할 때가 있습니다. 이 때, 변화 직전에 호출되는 것이 바로 beforeUpdate훅입니다. 변할 값을 이용해 가상 DOM을 렌더링하기 전이지만, 이 값을 이용해 작업할 수는 있습니다. 이 훅에서 값들을 추가적으로 변화시키더라도 랜더링을 추가로 호출하지는 않습니다.
+            beforeUpdate : function(){ 
+                console.log('beforeUpdate')
+            },
+            //가상 DOM을 렌더링 하고 실제 DOM이 변경된 이후에 호출되는 updated훅입니다. 변경된 data가 DOM에도 적용된 상태입니다. 만약 변경된 값들을 DOM을 이용해 접근하고 싶다면, updated훅이 가장 적절합니다.
+            //다만 이 훅에서 data를 변경하는 것은 무한 루프를 일으킬 수 있으므로 이 훅에서는 데이터를 직접 바꾸어서는 안됩니다.
+            //mounted훅과 마찬가지로, this.$nextTick을 이용해, 모든 화면이 업데이트 된 이후의 상태를 보장할 수 있습니다.
+            updated : function() { 
+                console.log('updated')
+            },
+            //해당 인스턴스가 해체되기 직전에 beforeDestroy훅이 호출됩니다. 아직 해체되기 이전이므로, 인스턴스는 완전하게 작동하기 때문에 모든 속성에 접근이 가능합니다. 이 단계에서는 이벤트 리스너를 해제하는 등 인스턴스가 사라지기 전에 해야할 일들을 처리하면 됩니다.
+            beforeDestroy : function(){ 
+                console.log('beforeDestroy')
+            },
+
+            //인스턴스가 해체되고 난 직후에 destroyed훅이 호출됩니다. 해체가 끝난 이후기 때문에, 인스턴스의 속성에 접근할 수 없습니다. 또한 하위 Vue 인스턴스 역시 삭제됩니다.
+            destroyed : function() { 
+                console.log('destroyed')
+            }
+
+
+            
+
+        })
+        
+    </script>
+</body>
+</html>
+

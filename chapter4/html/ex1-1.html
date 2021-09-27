@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <title>게터와 세터</title>
+
+</head>
+<body>
+    <!--산출 속성은 기본적으로 원래 데이터에 영향을 주지 않습니다. 따라서 산출 속성에
+        값을 대입하면 오류가 발생합니다.
+    -->
+    <div id="app">      
+        <input v-model ="width">{{width}}
+        <input v-model="halfWidth">{{halfWidth}}
+
+    </div>    
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    <script>
+        new Vue ({
+            el : '#app',
+            data : { 
+                width : 800,
+                height : 600 
+            }, 
+
+            computed : { 
+                //산출속성 halfwidth 정의 
+                halfWidth : { 
+                    get : function() { return this.width / 2},
+                    set : function(val) { this.width = val * 2},
+                }
+            }
+            
+        })
+    </script>
+</body>
+</html>
+

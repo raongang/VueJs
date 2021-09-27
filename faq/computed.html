@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>computed</title>
+</head>
+<body>
+
+    <!-- 
+        computed와 methods와의 차이점
+            1. template에서 호출시 ()를 적지 않아야 된다.
+            2. return 값이 반드시 존재해야한다.
+            3. 파라메터를 받을 수 없다.
+    -->
+
+    <div id="app">    
+
+        methods - count: {{methodsCount()}}<br>
+        <input type="button" value="증가" @click="countMehtods++">
+        <input type="button" value="감소" @click="countMehtods--"><br>
+
+        computed - count: {{computedCount}}<br>
+        <input type="button" value="증가" @click="countComputed++">
+        <input type="button" value="감소" @click="countComputed--">
+
+    </div>    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.17.1/dist/axios.min.js"></script>    
+    <script>
+        new Vue ({
+            el : '#app',
+            data : { 
+                countMehtods : 0 ,
+                countComputed : 0
+            },
+            methods : {
+                methodsCount : function() { 
+                    console.log('methodsCount');
+                    return this.countMehtods;
+                }
+                
+
+            },
+            computed : { 
+                computedCount : function(){ 
+                    console.log('computedCount');
+                    return this.countComputed;
+
+                }
+                
+                
+            },
+            created : function() { 
+                console.log('created')
+            }
+        })
+        
+        
+    </script>
+</body>
+</html>
+
