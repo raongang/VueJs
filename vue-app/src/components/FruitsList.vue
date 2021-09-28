@@ -17,6 +17,7 @@
       return this.$store.state.fruits
     }
   }    
+  // ES5에서는 fruits : function(){} 인데 ES2015에서 function을 빼고도 사용가능
 }
 </script>
 
