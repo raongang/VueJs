@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>컴포넌트끼리의 통신-자식에서 부모로</title>
+
+</head>
+<body>
+
+    <!-- 
+        자식 컴포넌트의 상태에 따라서 부모 컴포넌트에서 어떤 액션을 실시하도록 처리하거나, 자식 컵포넌트가 가진 데이터를 부모 컴포넌트에 전달하고 싶을 때는 사용자정의 이벤트와 $emit이라는 인스턴스 메서드를 사용합니다.
+
+        사용자 정의 이벤트는 v-on:click처럽 혹을 할 수 있게 하는 이벤트 타입을 직접만든 것입니다. jQuery의 on과 비슷합니다.
+        $emit은 컴포넌트에 연결되어 있는 이벤트를 명시적으로 실행시키는 메서드입니다. jQuery의 trigger와 비슷합니다.
+    -->
+    <div id="app">
+        <!--부모 템플릿 -->
+         <comp-child v-on:childs-event="parentsMethod"></comp-child>
+    </div>    
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    <script>
+
+        // 자식
+        Vue.component('comp-child', { 
+            template : '<button @click="handleClick">이벤트 호출하기</button>' , 
+            methods : { 
+                handleClick : function(){
+                    this.$emit('childs-event')
+                }
+            }
+        })
+
+        //부모쪽에서 이벤트 받기
+        new Vue ({
+            el : '#app',
+            data : {     
+
+            },
+            methods : { 
+                parentsMethod : function(){ 
+                    alert('이벤트 수신')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
+

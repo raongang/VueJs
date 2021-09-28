@@ -4,57 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>컴포넌트끼리의 통신</title>
+    <title>컴포넌트끼리의 통신-부모에서 자식으로</title>
 
 </head>
+
 <body>
 
-    <!-- Vue.js의 강력한 기능 중의 하나는 컴포넌트입니다. 기능을 가진 UI 부품별로 템플릿과 자바스크립트를 세트로 묶어, 다른 UI 부품과 분리해서 개발하거나 관리할 수 있게 하는방법입니다  -->
-    <!-- 
-        Vue.component 메서드를 사용해서 전역에 등록하면 자동으로 모든 컴포넌트에서 사용할 수 있습니다. 메서드의 매개변수로 다음과 같은 정보가 전달됩니다.
-            - 사용자 정의 태그로 사용할 이름
-            - 컴포넌트의 옵션 객체        
+    <!--
+    스코프는 실수로 다른 기능에 영향을 미치지 않게 하기 위한 것으로, 다른 컴포넌트
+    에 있는 데이터와 메서드에 직접 접근할 수 없게 합니다.
+
+    이 컴포넌트끼리 데이터를 공유하거나 연동하려면 다음과 같은 방법을 사용해야 합니다.
+        1. props와 사용자 정의 이벤트를 사용해서 부모 자식끼리 통신하기
+        2. 부모 자식 관계가 아닌 경우 이벤트 버스를 사용해서 통신하기
+        3. Vuex를 시용한 상태 관리    
     -->
-    
-    <div id="app">    
-        <my-component></my-component>
-        <custom-component></custom-component>
+
+    <div id="app">
+        <!-- 부모 컴포넌트의 템플릿에서 자식 컴포넌트를 사용할 때. 속성으로 컴포넌트에 데이터를 가지도록 할 수 있습니다 .-->    
+        <!-- 부모 컴포넌트 comp-child -->
+        <comp-child val="자식A"></comp-child>
+        <comp-child val="자식B"></comp-child>
+        <comp-child v-bind:val="valueB"></comp-child>
     </div>    
 
+
+
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios@0.17.1/dist/axios.min.js"></script>    
     <script>
 
-        //Vue.component 메서드를 사용해서 전역에 등록하면 자동으로 모든 컴포넌트에서 사용할 수 있습니다.
-        Vue.component('my-component',
-        {
-            //템플릿
-            template : '<p>{{message}}',
-            //데이터는 객체를 리턴하는 함수로 만들어야 함.
-            data : function(){ 
-                return { message : 'Hello Vue.js' }
-            }
+        //자식 컴포넌트
+        Vue.component('comp-child', { 
+            //템플릿에서 val 사용하기 
+            template : '<p>{{val}}</p>',
+            //받을 속성 이름 지정하기
+            props : ['val']
         })
-
-        /* 로컬에 component 정의 
-            컴포넌트 정의를 특정 컴포넌트의 components 옵션에 등록하면, 로컬로 등록된
-            해당 컴포넌트 스코프 내부에서만 해당 컴포넌트를 사용할 수 있도록 제한할 수 있
-            습니다.
-        */
-        var customComponent = { 
-            template : '<p>MyComponent2</p>'
-        }
-
         //루트 인스턴스 생성
         new Vue ({
             el : '#app',
             data : {     
+                valueB : '자식C'
             },
-            components : {
-                'custom-component' : customComponent // app에서만 사용 가능
-            }
         })
     </script>
 </body>
+
 </html>
 
